@@ -3,7 +3,11 @@
   <process id="SayHelloToLeave" isClosed="false" isExecutable="true" name="SayHelloToLeave" processType="None">
     <startEvent id="startevent1" name="Start"/>
     <endEvent id="endevent1" name="End"/>
-    <userTask activiti:candidateGroups="deptLeader" activiti:candidateUsers="deptLeader" activiti:exclusive="true" id="usertask1" name="领导审批"/>
+    <userTask activiti:assignee="deptLeader" activiti:candidateUsers="deptLeader" activiti:exclusive="true" id="usertask1" name="领导审批">
+      <extensionElements>
+        <activiti:taskListener event="create"/>
+      </extensionElements>
+    </userTask>
     <sequenceFlow id="_5" sourceRef="startevent1" targetRef="usertask1"/>
     <scriptTask activiti:exclusive="true" id="outputAuditResult" name="输出审批结果" scriptFormat="javascript">
       <script><![CDATA[java.lang.System.out.print( "applyUser:" + applyUser + ",days:"+days+",approval:"+approved);]]></script>
