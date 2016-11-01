@@ -2,14 +2,13 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd ">
 
-    
-    <context:property-placeholder location="classpath*:db.properties"/>
-    
+    <context:property-placeholder location="classpath:db_test.properties"/>
+
     <bean id="processEngineConfiguration"
-          class="org.activiti.engine.impl.cfg.StandaloneInMemProcessEngineConfiguration">
+          class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
 
         <property name="databaseType" value="mysql"/>
         <property name="dataSource" ref="dataSource"/>
@@ -20,9 +19,10 @@ http://www.springframework.org/schema/context/spring-context.xsd">
     </bean>
 
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
-        <property name="url" value="${db.url}"/>
-        <property name="username" value="${db.user}"/>
-        <property name="password" value="${db.password}"/>
+        <property name="url" value="jdbc:mysql://127.0.0.1:3306/activiti_book?useUnicode=true&amp;characterEncoding=utf-8&amp;noAccessToProcedureBodies=true
+"/>
+        <property name="username" value="root"/>
+        <property name="password" value="mysqladmin"/>
 
         <!-- 初始化连接大小 -->
         <property name="initialSize" value="1"/>
@@ -44,7 +44,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
         <property name="poolPreparedStatements" value="false" />
         <property name="maxPoolPreparedStatementPerConnectionSize" value="20" />
 
-        <property name="validationQuery" value="${db.validation_query}"/>
+        <property name="validationQuery" value="SELECT 1"/>
     </bean>
-    
+
 </beans>
